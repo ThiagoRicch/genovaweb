@@ -1,69 +1,116 @@
-import { client } from "./script.js";
+import { OLLAMA_CONFIG } from './config.js';
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-const input = document.querySelector("#userInput");
-const sendBtn = document.querySelector("#sendBtn");
-const messages = document.querySelector("#messages");
+const SUPABASE_URL = "https://iwiorzjughvsvvfjdodw.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3aW9yemp1Z2h2c3Z2Zmpkb2R3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY3NTkwNTMsImV4cCI6MjA3MjMzNTA1M30.bOgpdIs0W6S9ZvGt-l0Lj0CIwBpaO4eIaPRUF75FK-U";
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Adiciona mensagem na tela
-function addMessage(text, sender) {
-  const div = document.createElement("div");
-  div.className = `msg ${sender}`;
-  div.textContent = text;
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-// Atualiza resposta do bot
-function updateLastMessage(text) {
-  const last = messages.querySelector(".msg.bot:last-child");
-  if (last) last.textContent = text;
-  else addMessage(text, "bot");
-}
-
-// Salvar histórico no Supabase
-async function saveMessage(userMessage, aiMessage) {
-  try {
-    const { data: { user } } = await client.auth.getUser();
-    if (!user) return;
-
-    await client.from("chat_history").insert([
-      { user_id: user.id, user_message: userMessage, ai_response: aiMessage },
-    ]);
-  } catch (err) {
-    console.error("Erro ao salvar histórico:", err);
+class ChatBot {
+  constructor(inputSelector, sendBtnSelector, messagesSelector) {
+    this.input = document.querySelector(inputSelector);
+    this.sendBtn = document.querySelector(sendBtnSelector);
+    this.messages = document.querySelector(messagesSelector);
+    this.user = null;
+    this.initEvents();
+    this.getUserSession();
   }
-}
 
-// Enviar mensagem
-async function sendMessage() {
-  const text = input.value.trim();
-  if (!text) return;
+  async getUserSession() {
+    const { data } = await supabase.auth.getSession();
+    if (data.session) this.user = data.session.user;
+  }
 
-  addMessage(text, "user");
-  input.value = "";
-
-  addMessage("⌛ A Genova está pensando...", "bot");
-
-  try {
-    const res = await fetch("/api/genova", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text }),
+  initEvents() {
+    this.sendBtn.addEventListener("click", () => this.sendMessage());
+    this.input.addEventListener("keypress", e => {
+      if (e.key === "Enter") this.sendMessage();
     });
+  }
 
-    const data = await res.json();
-    const reply = data.reply || "⚠️ Erro na resposta da Genova.";
+  async sendMessage() {
+    const text = this.input.value.trim();
+    if (!text || !this.user) return;
 
-    updateLastMessage(reply);
-    await saveMessage(text, reply);
-  } catch (err) {
-    updateLastMessage("⚠️ Erro ao conectar.");
-    console.error(err);
+    this.addMessage(text, "user");
+    this.input.value = "";
+
+    let insertedId = null;
+    let botText = "Indisponível no momento.";
+
+    try {
+      // 1. Insere mensagem do usuário no Supabase
+      const { data, error } = await supabase.from("chat_history")
+        .insert([{ user_id: this.user.id, user_message: text, ai_response: "" }])
+        .select()
+        .single();
+
+      if (error) throw error;
+      insertedId = data.id;
+
+      // 2. Gera resposta com o Ollama
+      const response = await fetch(`${OLLAMA_CONFIG.baseUrl}/api/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: OLLAMA_CONFIG.model,
+          prompt: "Responda sempre em português: " + text
+        })
+      });
+
+      if (!response.body) throw new Error("Sem resposta do modelo.");
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      botText = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split("\n").filter(Boolean);
+
+        for (const line of lines) {
+          try {
+            const parsed = JSON.parse(line);
+            if (parsed.response) {
+              botText += parsed.response;
+              this.updateLastMessage(botText);
+            }
+          } catch (err) {
+            console.warn("Erro parse:", err);
+          }
+        }
+      }
+
+      // 3. Atualiza resposta da IA no Supabase
+      if (insertedId) {
+        await supabase.from("chat_history")
+          .update({ ai_response: botText })
+          .eq("id", insertedId);
+      }
+
+    } catch (err) {
+      this.addMessage("⚠️ Erro ao conectar com o Ollama.", "bot");
+      console.error(err);
+    }
+  }
+
+  addMessage(text, sender) {
+    const div = document.createElement("div");
+    div.className = `msg ${sender}`;
+    div.textContent = text;
+    this.messages.appendChild(div);
+    this.messages.scrollTop = this.messages.scrollHeight;
+  }
+
+  updateLastMessage(text) {
+    const last = this.messages.querySelector(".msg.bot:last-child");
+    if (last) last.textContent = text;
+    else this.addMessage(text, "bot");
   }
 }
 
-// Eventos
-sendBtn.addEventListener("click", sendMessage);
-input.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") sendMessage();
+document.addEventListener("DOMContentLoaded", () => {
+  new ChatBot("#userInput", "#sendBtn", "#messages");
 });

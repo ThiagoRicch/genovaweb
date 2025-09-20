@@ -1,38 +1,51 @@
-const InputCheck = document.querySelector('#modo__noturno');
-const elemento = document.querySelector('body');
+class ThemeSwitcher {
+  constructor() {
+    this.inputCheck = document.querySelector('#modo__noturno');
+    this.body = document.querySelector('body');
 
-const img_genova_navbar = document.querySelector('.imagem__genova__navbar');
-const imagem_genova = document.querySelector('.imagem__genova');
-const img_card_cerebro = document.querySelector('.imagem__card__cerebro');
-const img_card_cerebro2 = document.querySelector('.imagem__card__cerebro2');
-const img_card_bot = document.querySelector('.imagem__card__bot');
-const titulo = document.querySelector('.titulo__menu__navbar');
-const titulo__slide__tablet = document.querySelector('.titulo__slide2__tablet');
-const paragrafo__slide__tablet = document.querySelector('.paragrafo__slide2__tablet');
+    this.imgGenovaNavbar = document.querySelector('.imagem__genova__navbar');
+    this.imgGenova = document.querySelector('.imagem__genova');
+    this.imgCardCerebro = document.querySelector('.imagem__card__cerebro');
+    this.imgCardCerebro2 = document.querySelector('.imagem__card__cerebro2');
+    this.imgCardBot = document.querySelector('.imagem__card__bot');
 
-if (InputCheck) {
-  InputCheck.addEventListener('click', () => {
-    const modo = InputCheck.checked ? 'dark' : 'light';
-    elemento.setAttribute('data-bs-theme', modo);
+    this.titulo = document.querySelector('.titulo__menu__navbar');
+    this.tituloSlideTablet = document.querySelector('.titulo__slide2__tablet');
+    this.paragrafoSlideTablet = document.querySelector('.paragrafo__slide2__tablet');
+
+    this.initEvents();
+  }
+
+  initEvents() {
+    if (!this.inputCheck) return;
+    this.inputCheck.addEventListener('click', () => this.toggleTheme());
+  }
+
+  toggleTheme() {
+    const modo = this.inputCheck.checked ? 'dark' : 'light';
+    this.body.setAttribute('data-bs-theme', modo);
 
     if (modo === 'dark') {
-      if (imagem_genova) imagem_genova.src = '../assets/genova_branco.svg';
-      if (img_card_cerebro) img_card_cerebro.src = '../assets/cerebro_branco.svg';
-      if (img_card_cerebro2) img_card_cerebro2.src = '../assets/cerebro2_branco.svg';
-      if (img_card_bot) img_card_bot.src = '../assets/bot_branco.svg';
-      if (img_genova_navbar) img_genova_navbar.src = '../assets/genova_branco.svg';
-      if (titulo) titulo.style.color = 'white';
-      if (titulo__slide__tablet) titulo__slide__tablet.style.color = 'white';
-      if (paragrafo__slide__tablet) paragrafo__slide__tablet.style.color = 'white';
+      if (this.imgGenova) this.imgGenova.src = '../assets/genova_branco.svg';
+      if (this.imgCardCerebro) this.imgCardCerebro.src = '../assets/cerebro_branco.svg';
+      if (this.imgCardCerebro2) this.imgCardCerebro2.src = '../assets/cerebro2_branco.svg';
+      if (this.imgCardBot) this.imgCardBot.src = '../assets/bot_branco.svg';
+      if (this.imgGenovaNavbar) this.imgGenovaNavbar.src = '../assets/genova_branco.svg';
+      if (this.titulo) this.titulo.style.color = 'white';
+      if (this.tituloSlideTablet) this.tituloSlideTablet.style.color = 'white';
+      if (this.paragrafoSlideTablet) this.paragrafoSlideTablet.style.color = 'white';
     } else {
-      if (imagem_genova) imagem_genova.src = '../assets/genova.svg';
-      if (img_card_cerebro) img_card_cerebro.src = '../assets/cerebro.svg';
-      if (img_card_cerebro2) img_card_cerebro2.src = '../assets/cerebro2.svg';
-      if (img_card_bot) img_card_bot.src = '../assets/bot.svg';
-      if (img_genova_navbar) img_genova_navbar.src = '../assets/genova.svg';
-      if (titulo) titulo.style.color = 'black';
-      if (titulo__slide__tablet) titulo__slide__tablet.style.color = 'black';
-      if (paragrafo__slide__tablet) paragrafo__slide__tablet.style.color = 'black';
+      if (this.imgGenova) this.imgGenova.src = '../assets/genova.svg';
+      if (this.imgCardCerebro) this.imgCardCerebro.src = '../assets/cerebro.svg';
+      if (this.imgCardCerebro2) this.imgCardCerebro2.src = '../assets/cerebro2.svg';
+      if (this.imgCardBot) this.imgCardBot.src = '../assets/bot.svg';
+      if (this.imgGenovaNavbar) this.imgGenovaNavbar.src = '../assets/genova.svg';
+      if (this.titulo) this.titulo.style.color = 'black';
+      if (this.tituloSlideTablet) this.tituloSlideTablet.style.color = 'black';
+      if (this.paragrafoSlideTablet) this.paragrafoSlideTablet.style.color = 'black';
     }
-  });
+  }
 }
+
+// Inicializa
+document.addEventListener('DOMContentLoaded', () => new ThemeSwitcher());
