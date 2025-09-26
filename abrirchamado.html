@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Perfil</title>
+    <title>Abrir Chamado</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/estilos.css">
 </head>
+
 <body>
     <header>
         <nav class="navbar bg-body-tertiary">
@@ -32,7 +34,6 @@
                                     <li><a class="dropdown-item" href="historicoIA.html">Histórico IA</a></li>
                                     <li><a class="dropdown-item" href="historicoChamados.html">Histórico Chamados</a></li>
                                     <li><a class="dropdown-item" href="faleconosco.html">Fale Conosco</a></li>
-                                   
                                     <li>
                                         <div class="dropdown-item">
                                             <div class="form-check form-switch">
@@ -50,32 +51,49 @@
             </div>
         </nav>
     </header>
-    <main class = "profile__main">
-        <div>
-            <img class="imagem__genova__profile" src="../assets/genova.svg" alt="logo genova">
+
+    <main class="abrirchamado__main">
+        <h2 class="titulo__chamado">Faça o seu Chamado!</h2>
+
+        <div class="form-floating mb-3 textbox__chamado">
+            <input type="text" class="form-control" id="inputDescricaoChamado" placeholder="Digite seu Chamado">
+            <label for="inputDescricaoChamado">Chamado</label>
         </div>
 
-        <div class="form-floating mb-3 textbox__profile">
-            <input type="text" class="form-control" id="InputCarregarNome">
-            <label for="inputDescricaoChamado">Nome</label>
+        <div>
+            <select class="form-select" id="selectCategoriaChamado" aria-label="Default select example">
+                <option value="" selected disabled>Categoria</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Software">Software</option>
+                <option value="Rede/Internet">Rede/Internet</option>
+                <option value="Acesso/Usuario">Acesso/Usuário</option>
+                <option value="Segurança da Informação">Segurança da Informação</option>
+                <option value="Infraestrutura">Infraestrutura</option>
+                <option value="Outros">Outros</option>
+            </select>
         </div>
-        <div class="form-floating mb-3 textbox__profile">
-            <input type="text" class="form-control" id="inputCarregarSobrenome">
-            <label for="inputDescricaoChamado">Sobrenome</label>
+
+        <div class="selecionar__prioridade">
+            <div class="form-check opc__naourgente">
+                <input class="form-check-input rodinha__do__naourgente" type="radio" name="radioPrioridade" id="radioPrioridade1" value="Não Urgente">
+                <label class="form-check-label" for="radioPrioridade1">Não Urgente</label>
+            </div>
+            <div class="form-check opc__poucourgente">
+                <input class="form-check-input rodinha__do__poucourgente" type="radio" name="radioPrioridade" id="radioPrioridade2" value="Pouco Urgente">
+                <label class="form-check-label" for="radioPrioridade2">Pouco Urgente</label>
+            </div>
+            <div class="form-check opc__urgente">
+                <input class="form-check-input rodinha__do__urgente" type="radio" name="radioPrioridade" id="radioPrioridade3" value="Urgente">
+                <label class="form-check-label" for="radioPrioridade3">Urgente</label>
+            </div>
         </div>
-        <div class="form-floating mb-3 textbox__profile">
-            <input type="email" class="form-control" id="inputCarregarEmail">
-            <label for="inputDescricaoChamado">Email</label>
-        </div>
-        <div class="botoes__profile">
-            <button id="btnLogoutCard" class="btn btn-danger">Sair</button>
-            <button type="button" id="btnEnviarChamado" class="btn btn-primary">Salvar</button>
-        </div>
+
+        <button type="button" id="btnEnviarChamado" class="btn btn-success">Enviar</button>
     </main>
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="./js/script.js"></script>
+    <script type="module" src="../js/abrirChamado.js"></script>
     <script src="./js/modoNoturno.js"></script>
 </body>
+
 </html>

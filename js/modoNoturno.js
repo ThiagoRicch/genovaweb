@@ -8,6 +8,7 @@ class ThemeSwitcher {
     this.imgCardCerebro = document.querySelector('.imagem__card__cerebro');
     this.imgCardCerebro2 = document.querySelector('.imagem__card__cerebro2');
     this.imgCardBot = document.querySelector('.imagem__card__bot');
+    this.imgGenovaProfile = document.querySelector('.imagem__genova__profile'); // ✅ novo
 
     this.titulo = document.querySelector('.titulo__menu__navbar');
     this.tituloSlideTablet = document.querySelector('.titulo__slide2__tablet');
@@ -31,6 +32,7 @@ class ThemeSwitcher {
       if (this.imgCardCerebro2) this.imgCardCerebro2.src = '../assets/cerebro2_branco.svg';
       if (this.imgCardBot) this.imgCardBot.src = '../assets/bot_branco.svg';
       if (this.imgGenovaNavbar) this.imgGenovaNavbar.src = '../assets/genova_branco.svg';
+      if (this.imgGenovaProfile) this.imgGenovaProfile.src = '../assets/genova_branco.svg'; // ✅ troca no profile
       if (this.titulo) this.titulo.style.color = 'white';
       if (this.tituloSlideTablet) this.tituloSlideTablet.style.color = 'white';
       if (this.paragrafoSlideTablet) this.paragrafoSlideTablet.style.color = 'white';
@@ -40,6 +42,7 @@ class ThemeSwitcher {
       if (this.imgCardCerebro2) this.imgCardCerebro2.src = '../assets/cerebro2.svg';
       if (this.imgCardBot) this.imgCardBot.src = '../assets/bot.svg';
       if (this.imgGenovaNavbar) this.imgGenovaNavbar.src = '../assets/genova.svg';
+      if (this.imgGenovaProfile) this.imgGenovaProfile.src = '../assets/genova.svg'; // ✅ volta normal no profile
       if (this.titulo) this.titulo.style.color = 'black';
       if (this.tituloSlideTablet) this.tituloSlideTablet.style.color = 'black';
       if (this.paragrafoSlideTablet) this.paragrafoSlideTablet.style.color = 'black';
