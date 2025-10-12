@@ -130,7 +130,7 @@ class GenovaApp {
       }
 
       alert("Cadastro realizado!");
-      window.location.href = "login.html";
+      window.location.href = "interfaces/login.html";
     } catch (err) {
       alert("Erro ao registrar: " + err.message);
     }
