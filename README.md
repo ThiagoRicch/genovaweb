@@ -36,7 +36,7 @@ Ele me ajudou a aprender, a praticar novas tecnologias e a me sentir ainda mais 
 
 Baixe ou clone este repositório:
 
-git clone https://github.com/seu-usuario/projeto-ia-web.git
+git clone https://github.com/ThiagoRicch/genovaweb.git
 
 Abra o arquivo index.html no seu navegador preferido 🌐
 
