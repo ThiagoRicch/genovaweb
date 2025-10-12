@@ -1,4 +1,4 @@
-💻 Projeto Web com IA Mistral 2.7b
+💻 Projeto Web com IA Mistral: 7b (OLLAMA)
 🚀 Desenvolvido com HTML, CSS, JavaScript e Bootstrap
 🧠 Sobre o Projeto
 
