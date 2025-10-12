@@ -148,7 +148,7 @@ class GenovaApp {
     try {
       const { error } = await this.client.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      window.location.href = "index.html";
+      window.location.href = "..index.html";
     } catch (err) {
       alert("Erro ao logar: " + err.message);
     }
@@ -156,7 +156,7 @@ class GenovaApp {
 
   async logout() {
     await this.client.auth.signOut();
-    window.location.href = "login.html";
+    window.location.href = "interfaces/login.html";
   }
 
   // ==================== MOSTRAR USUÁRIO ====================
