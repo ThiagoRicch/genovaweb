@@ -19,6 +19,8 @@ class ThemeSwitcher {
     this.imgHistoryChamado = document.querySelector('.img__history-chamado');
     this.imgFaleConosco = document.querySelector('.img__fale-conosco');
     this.imgTheme = document.querySelector('.img__theme');
+    this.imgWarning = document.querySelector('.img__warning');
+    this.HandDenuncias = document.querySelector('.img__hand__denuncias');
     
     this.initEvents();
   }
@@ -50,6 +52,8 @@ class ThemeSwitcher {
       if (this.imgHistoryChamado) this.imgHistoryChamado.src = '../assets/clipboard_chamado_branco.svg.png';
       if (this.imgFaleConosco) this.imgFaleConosco.src = '../assets/telephone_branco.svg.png';
       if (this.imgTheme) this.imgTheme.src = '../assets/theme_branco.svg.png';
+      if (this.imgWarning) this.imgWarning.src = '../assets/warning_branco.svg.png';
+      if (this.HandDenuncias) this.HandDenuncias.src = '../assets/denunciar_branco.svg.png';
     } else {
       if (this.imgGenova) this.imgGenova.src = '../assets/genova.svg';
       if (this.imgCardCerebro) this.imgCardCerebro.src = '../assets/cerebro.svg';
@@ -68,6 +72,8 @@ class ThemeSwitcher {
       if (this.imgHistoryChamado) this.imgHistoryChamado.src = '../assets/clipboard_chamado.svg.png';
       if (this.imgFaleConosco) this.imgFaleConosco.src = '../assets/telephone.svg.png';
       if (this.imgTheme) this.imgTheme.src = '../assets/theme.svg.png';
+      if (this.imgWarning) this.imgWarning.src = '../assets/warning.svg.png';
+      if (this.HandDenuncias) this.HandDenuncias.src = '../assets/denunciar.svg.png';
     }
   }
 }
