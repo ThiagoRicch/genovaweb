@@ -148,7 +148,7 @@ class GenovaApp {
     try {
       const { error } = await this.client.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      window.location.href = "..index.html";
+      window.location.href = "../index.html";
     } catch (err) {
       alert("Erro ao logar: " + err.message);
     }
