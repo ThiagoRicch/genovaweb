@@ -16,47 +16,72 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"><img class="imagem__genova" src="../assets/genova.svg"
                         alt="logo genova"><strong>enova</strong></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title"><img class="imagem__genova__navbar" src="../assets/genova.svg"
-                                alt="logo genova"><strong>enova</strong></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><img class="imagem__genova__navbar"
+                                src="../assets/genova.svg" alt="logo genova"><strong class="titulo__menu__navbar">enova</strong></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
-                        <ul class="navbar-nav flex-grow-1 pe-3">
-                            <li><a class="nav-link active" href="index.html">Início</a></li>
-                            <li><a class="nav-link active" href="chat.html">GenovaIA</a></li>
-                            <li><a class="nav-link active" href="abrirchamado.html">Abrir Chamado</a></li>
-                            <li><a class="nav-link active" href="profile.html">Meu Perfil</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Mais..</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="historicoIA.html">Histórico IA</a></li>
-                                    <li><a class="dropdown-item" href="historicoChamados.html">Histórico Chamados</a></li>
-                                    <li><a class="dropdown-item" href="faleconosco.html">Fale Conosco</a></li>
-                                    <li>
-                                        <div class="dropdown-item">
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="modo__noturno">
-                                                <label class="form-check-label" for="modo__noturno">Modo Noturno</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                </ul>
-                            </li>
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <div class="align-items-center">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="index.html">
+                                    <img class = "img__home" src="./assets/home.svg.png" alt="imagem home"> Início</a>
+                                    
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="chat.html"> 
+                                    <img class = "img__chat-genova" src="./assets/chat.svg.png" alt=""> GenovaIA</a>
+                                    
+                                </li>
+                                 <li>
+                                    <a class="nav-link active" href="abrirchamado.html">
+                                    <img class = "img__support" src="./assets/support.svg.png" alt=""> Abrir Chamado</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link active" href="profile.html">
+                                    <img class = "img__profile" src="./assets/profile.svg.png" alt=""> Meu Perfil</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Mais..
+                                    </a>
+                                    <div class="align-items-center">
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="historicoIA.html">
+                                                <img class = "img__history-ia" src="./assets/clipboard_ia.svg.png" alt=""> Histórico IA</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="historicoChamados.html">
+                                                <img class = "img__history-chamado" src="./assets/clipboard_chamado.svg.png" alt=""> Histórico Chamados</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="faleconosco.html">
+                                                <img class = "img__fale-conosco" src="./assets/telephone.svg.png" alt=""> Fale Conosco</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#"><div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="modo__noturno">
+                                            <label class="form-check-label" for="modo__noturno">Modo Noturno 
+                                                <img class = "img__theme" src="./assets/theme.svg.png" alt="">
+                                            </label>
+                                            </div></a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </div>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
+
     <main>
         <section class="info__fale__conosco">
             <div class="card" style="width: 30rem;">

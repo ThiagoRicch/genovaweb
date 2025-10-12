@@ -32,6 +32,28 @@
   height: 100px;
 }
 
+.info__prioridades {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 70px;
+  padding: 0 20%;
+}
+
+.info__prioridades__nao__urgente {
+  color: blue;
+}
+
+.info__prioridades__pouco__urgente {
+  color: orange;
+}
+
+.info__prioridades__urgente {
+  color: red;
+}
+
 .info__fale__conosco {
 
   margin-top: 10%;
@@ -99,7 +121,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top:3%;
+  margin-top:10%;
   gap: 1em;
 }
 
