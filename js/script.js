@@ -31,7 +31,7 @@ class GenovaApp {
         this.listenChatHistory();
         this.addLogoutEvents();
 
-      } else if (path.includes("historicoChamados.html")) {
+      } else if (path.includes("historicochamados.html")) {
         await this.showUser();
         await this.loadChamadosHistory();
         this.listenChamadosHistory();
@@ -148,7 +148,7 @@ class GenovaApp {
     try {
       const { error } = await this.client.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      window.location.href = "index.html";
+      window.location.href = "../index.html";
     } catch (err) {
       alert("Erro ao logar: " + err.message);
     }
@@ -395,13 +395,13 @@ class GenovaApp {
 
   // ==================== LOGOUT ====================
   addLogoutEvents() {
-    const logoutBtn = document.getElementById("btnLogout");
+    const logoutBtn = document.getElementById("btnSairProfile"); // ID exclusivo para logout
     if (logoutBtn) logoutBtn.addEventListener("click", () => this.logout());
 
-    const logoutCardBtn = document.getElementById("btnLogoutCard");
+    const logoutCardBtn = document.getElementById("btnSairProfile"); // ID exclusivo para logout
     if (logoutCardBtn) logoutCardBtn.addEventListener("click", () => this.logout());
 
-    const logoutExtraBtn = document.getElementById("btnLogoutExtra"); // ID exclusivo para logout
+    const logoutExtraBtn = document.getElementById("btnSaiProfile"); // ID exclusivo para logout
     if (logoutExtraBtn) logoutExtraBtn.addEventListener("click", () => this.logout());
   }
 }

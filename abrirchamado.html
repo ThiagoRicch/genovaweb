@@ -30,21 +30,21 @@
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <div class="align-items-center">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="../index.html">
+                                    <a class="nav-link active" aria-current="page" href="index.html">
                                     <img class = "img__home" src="../assets/home.svg.png" alt="imagem home"> Início</a>
                                     
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="../interfaces/chat.html"> 
+                                    <a class="nav-link active" aria-current="page" href="chat.html"> 
                                     <img class = "img__chat-genova" src="../assets/chat.svg.png" alt=""> GenovaIA</a>
                                     
                                 </li>
                                  <li>
-                                    <a class="nav-link active" href="../interfaces/abrirchamado.html">
+                                    <a class="nav-link active" href="abrirchamado.html">
                                     <img class = "img__support" src="../assets/support.svg.png" alt=""> Abrir Chamado</a>
                                 </li>
                                 <li>
-                                    <a class="nav-link active" href="../interfaces/profile.html">
+                                    <a class="nav-link active" href="profile.html">
                                     <img class = "img__profile" src="../assets/profile.svg.png" alt=""> Meu Perfil</a>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -54,16 +54,16 @@
                                     </a>
                                     <div class="align-items-center">
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="../interfaces/historicoIA.html">
+                                            <li><a class="dropdown-item" href="historicoIA.html">
                                                 <img class = "img__history-ia" src="../assets/clipboard_ia.svg.png" alt=""> Histórico IA</a>
                                             </li>
-                                            <li><a class="dropdown-item" href="../interfaces/historicochamados.html">
+                                            <li><a class="dropdown-item" href="historicochamados.html">
                                                 <img class = "img__history-chamado" src="../assets/clipboard_chamado.svg.png" alt=""> Histórico Chamados</a>
                                             </li>
-                                            <li><a class="dropdown-item" href="../interfaces/faleconosco.html">
+                                            <li><a class="dropdown-item" href="faleconosco.html">
                                                 <img class = "img__fale-conosco" src="../assets/telephone.svg.png" alt=""> Fale Conosco</a>
                                             </li>
-                                            <li><a class="dropdown-item" href="../interfaces/denuncias.html">
+                                            <li><a class="dropdown-item" href="denuncias.html">
                                                 <img class = "img__warning" src="../assets/warning.svg.png" alt=""> Denunciar</a>
                                             </li>
                                             <li><a class="dropdown-item" href="#"><div class="form-check form-switch">
@@ -84,34 +84,48 @@
         </nav>
     </header>
 
-    <main class = "main__denuncias">
+    <main class="abrirchamado__main">
+        <h2 class="titulo__chamado">Faça o seu Chamado!</h2>
+
+        <div class="form-floating mb-3 textbox__chamado">
+            <input type="text" class="form-control" id="inputDescricaoChamado" placeholder="Digite seu Chamado">
+            <label for="inputDescricaoChamado">Chamado</label>
+        </div>
+
         <div>
-            <img class="img__hand__denuncias" src="../assets/denunciar.svg.png" alt="Logo de uma mão">
-        </div>
-        <div class="inputdenuncia">
-            <div class="form-floating mb-3 inputmedidas">
-                <input type="text" class="form-control" id="floatingInput" placeholder="Escreva sua denúncia">
-                <label for="floatingInput">Denúncia</label>
-            </div>
-        </div>
-        <div class="selecionadordegravidade">
-            <select class="form-select sizeselecionador" aria-label="Default select example">
-                <option selected>Selecione a gravidade do caso!</option>
-                <option value="1">Racismo</option>
-                <option value="2">Xenofobia</option>
-                <option value="3">Gordofobia</option>
-                <option value="4">LGBTfobia</option>
-                <option value="5">Assédio Moral</option>
-                <option value="6">Assédio Sexual</option>
-                <option value="7">Outros</option>
+            <select class="form-select" id="selectCategoriaChamado" aria-label="Default select example">
+                <option value="" selected disabled>Categoria</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Software">Software</option>
+                <option value="Rede/Internet">Rede/Internet</option>
+                <option value="Acesso/Usuario">Acesso/Usuário</option>
+                <option value="Segurança da Informação">Segurança da Informação</option>
+                <option value="Infraestrutura">Infraestrutura</option>
+                <option value="Outros">Outros</option>
             </select>
         </div>
 
+        <div class="selecionar__prioridade">
+            <div class="form-check opc__naourgente">
+                <input class="form-check-input rodinha__do__naourgente" type="radio" name="radioPrioridade" id="radioPrioridade1" value="Não Urgente">
+                <label class="form-check-label" for="radioPrioridade1">Não Urgente</label>
+            </div>
+            <div class="form-check opc__poucourgente">
+                <input class="form-check-input rodinha__do__poucourgente" type="radio" name="radioPrioridade" id="radioPrioridade2" value="Pouco Urgente">
+                <label class="form-check-label" for="radioPrioridade2">Pouco Urgente</label>
+            </div>
+            <div class="form-check opc__urgente">
+                <input class="form-check-input rodinha__do__urgente" type="radio" name="radioPrioridade" id="radioPrioridade3" value="Urgente">
+                <label class="form-check-label" for="radioPrioridade3">Urgente</label>
+            </div>
+        </div>
+
+        <button type="button" id="btnEnviarChamado" class="btn btn-success">Enviar</button>
     </main>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="../js/abrirChamado.js"></script>
     <script src="../js/modoNoturno.js"></script>
-    
 </body>
 
 </html>
