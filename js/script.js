@@ -286,7 +286,7 @@ class GenovaApp {
             <td><input type="text" class="form-control form-control-sm" value="${item.prioridade}"></td>
             <td>${new Date(item.data_chamado).toLocaleString()}</td>
             <td>
-              <button class="btn btn-success btn-sm btn-edit">Salvar</button>
+              <button class="btn btn-success btn-sm btn-edit">Alterar</button>
               <button class="btn btn-danger btn-sm btn-delete">Excluir</button>
             </td>`;
           tbody.prepend(tr);
