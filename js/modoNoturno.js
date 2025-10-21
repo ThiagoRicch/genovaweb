@@ -21,6 +21,9 @@ class ThemeSwitcher {
     this.imgTheme = document.querySelector('.img__theme');
     this.imgWarning = document.querySelector('.img__warning');
     this.HandDenuncias = document.querySelector('.img__hand__denuncias');
+    this.imgSuccess = document.querySelector('.img__success');
+    this.imgTiming = document.querySelector('.img__timing');
+    this.imgLogout = document.querySelector('.img__logout');
     
     this.initEvents();
   }
@@ -54,6 +57,9 @@ class ThemeSwitcher {
       if (this.imgTheme) this.imgTheme.src = '../assets/theme_branco.svg.png';
       if (this.imgWarning) this.imgWarning.src = '../assets/warning_branco.svg.png';
       if (this.HandDenuncias) this.HandDenuncias.src = '../assets/denunciar_branco.svg.png';
+      if (this.imgSuccess) this.imgSuccess.src = '../assets/success__branco.png';
+      if (this.imgTiming) this.imgTiming.src = '../assets/timing__branco.png';
+      if (this.imgLogout) this.imgLogout.src = '../assets/logout__branco.png';
     } else {
       if (this.imgGenova) this.imgGenova.src = '../assets/genova.svg';
       if (this.imgCardCerebro) this.imgCardCerebro.src = '../assets/cerebro.svg';
@@ -74,6 +80,9 @@ class ThemeSwitcher {
       if (this.imgTheme) this.imgTheme.src = '../assets/theme.svg.png';
       if (this.imgWarning) this.imgWarning.src = '../assets/warning.svg.png';
       if (this.HandDenuncias) this.HandDenuncias.src = '../assets/denunciar.svg.png';
+      if (this.imgSuccess) this.imgSuccess.src = '../assets/success.svg';
+      if (this.imgTiming) this.imgTiming.src = '../assets/timing.png';
+      if (this.imgLogout) this.imgLogout.src = '../assets/logout.png';
     }
   }
 }

@@ -181,6 +181,21 @@ input[type="checkbox"]:focus {
     width: 400px;
 }
 
+.img__circle__nu,
+.img__circle__pu,
+.img__circle__u,
+.img__success,
+.img__timing
+{
+    width: 20px;
+    height: 20px;
+}
+
+.main__support
+{
+  margin-top: 5%;
+}
+
 .selecionadordegravidade
 {
     display: flex;
@@ -278,5 +293,11 @@ input[type="checkbox"]:focus {
   .card__main
   {
     margin-top: 40%;;
+  }
+
+  .main__support
+  {
+    margin-top: 40%;
+    padding: 1em;
   }
 }

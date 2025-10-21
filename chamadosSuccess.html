@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Perfil</title>
+    <title>Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/estilos.css">
 </head>
-<body>
+
+<body data-bs-theme="light">
     <header>
         <nav class="navbar bg-body-tertiary fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html"><img class="imagem__genova" src="../assets/genova.svg"
-                        alt="logo genova"><strong>enova</strong></a>
+                <a class="navbar-brand" href="screenSupport.html"><img class="imagem__genova" src="../assets/genova.svg"
+                        alt="logo genova"><strong>enova</strong>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                     aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -28,22 +31,24 @@
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <div class="align-items-center">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="index.html">
-                                    <img class = "img__home" src="../assets/home.svg.png" alt="imagem home"> Início</a>
+                                    <a class="nav-link active" aria-current="page" href="screenSupport.html">
+                                    <img class = "img__home" src="./assets/home.svg.png" alt="imagem home"> Início</a>
                                     
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="chat.html"> 
-                                    <img class = "img__chat-genova" src="../assets/chat.svg.png" alt=""> GenovaIA</a>
+                                    <a class="nav-link active" aria-current="page" href="chatSupport.html"> 
+                                    <img class = "img__chat-genova" src="./assets/chat.svg.png" alt=""> GenovaIA</a>
                                     
                                 </li>
-                                 <li>
-                                    <a class="nav-link active" href="abrirchamado.html">
-                                    <img class = "img__support" src="../assets/support.svg.png" alt=""> Abrir Chamado</a>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="chamadosTiming.html"> 
+                                    <img class = "img__timing" src="./assets/timing.png" alt=""> Em Andamento</a>
+                                    
                                 </li>
-                                <li>
-                                    <a class="nav-link active" href="profile.html">
-                                    <img class = "img__profile" src="../assets/profile.svg.png" alt=""> Meu Perfil</a>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="chamadosSuccess.html"> 
+                                    <img class = "img__success" src="./assets/success.svg" alt=""> Solucionados</a>
+                                    
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -52,24 +57,24 @@
                                     </a>
                                     <div class="align-items-center">
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="historicoIA.html">
-                                                <img class = "img__history-ia" src="../assets/clipboard_ia.svg.png" alt=""> Histórico IA</a>
+                                            <li><a class="dropdown-item" href="chamadosNaoUrgentes.html">
+                                                <img class = "img__circle__nu" src="./assets/circle__nu.svg" alt=""> Não Urgentes</a>
                                             </li>
-                                            <li><a class="dropdown-item" href="historicochamados.html">
-                                                <img class = "img__history-chamado" src="../assets/clipboard_chamado.svg.png" alt=""> Histórico Chamados</a>
+                                            <li><a class="dropdown-item" href="chamadosPoucoUrgentes.html">
+                                                <img class = "img__circle__pu" src="./assets/circle__pu.svg" alt=""> Pouco Urgentes</a>
                                             </li>
-                                            <li><a class="dropdown-item" href="faleconosco.html">
-                                                <img class = "img__fale-conosco" src="../assets/telephone.svg.png" alt=""> Fale Conosco</a>
-                                            </li>
-                                            <li><a class="dropdown-item" href="denuncias.html">
-                                                <img class = "img__warning" src="../assets/warning.svg.png" alt=""> Denunciar</a>
+                                            <li><a class="dropdown-item" href="chamadosUrgentes.html">
+                                                <img class ="img__circle__u" src="./assets/circle__u.svg" alt=""> Urgentes</a>
                                             </li>
                                             <li><a class="dropdown-item" href="#"><div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch" id="modo__noturno">
                                             <label class="form-check-label" for="modo__noturno">Modo Noturno 
-                                                <img class = "img__theme" src="../assets/theme.svg.png" alt="">
+                                                <img class = "img__theme" src="./assets/theme.svg.png" alt="">
                                             </label>
                                             </div></a></li>
+                                            <li><a class="dropdown-item" href="login.html">
+                                                <img class ="img__logout" src="./assets/logout.png" alt=""> Sair</a>
+                                            </li>
                                             <li><hr class="dropdown-divider"></li>
                                         </ul>
                                     </div>
@@ -81,33 +86,24 @@
             </div>
         </nav>
     </header>
-    
-    <main class = "profile__main">
-        <div>
-            <img class="imagem__genova__profile" src="../assets/genova.svg" alt="logo genova">
-        </div>
-
-        <div class="form-floating mb-3 textbox__profile">
-            <input type="text" class="form-control" id="InputCarregarNome">
-            <label for="inputDescricaoChamado">Nome</label>
-        </div>
-        <div class="form-floating mb-3 textbox__profile">
-            <input type="text" class="form-control" id="inputCarregarSobrenome">
-            <label for="inputDescricaoChamado">Sobrenome</label>
-        </div>
-        <div class="form-floating mb-3 textbox__profile">
-            <input type="email" class="form-control" id="inputCarregarEmail">
-            <label for="inputDescricaoChamado">Email</label>
-        </div>
-        <div class="botoes__profile">
-            <button id="btnSairProfile" class="btn btn-danger">Sair</button>
-            <button type="button" id="btnAlterarPerfil" class="btn btn-primary">Salvar</button>
-        </div>
+    <main class="main__support">
+        <table class="table__success table table-success table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Prioridade</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Data</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </main>
-
-
+    <!-- Script do Supabase -->
+    <script type="module" src="../js/configSupport.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script type= "module" src="./js/script.js"></script>
+    <script type="module" src="../js/script.js"></script>
     <script src="../js/modoNoturno.js"></script>
 </body>
+
 </html>

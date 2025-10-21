@@ -21,7 +21,7 @@ class GenovaApp {
 
       if (path.includes("profile.html")) {
         await this.showProfile();
-        const btnSalvar = document.getElementById("btnEnviarChamado");
+        const btnSalvar = document.getElementById("btnAlterarPerfil");
         if (btnSalvar) btnSalvar.addEventListener("click", () => this.updateProfile());
         this.addLogoutEvents();
 
@@ -87,6 +87,11 @@ class GenovaApp {
     const lastName = document.getElementById("inputCarregarSobrenome")?.value.trim();
     const email = document.getElementById("inputCarregarEmail")?.value.trim();
 
+    if (!firstName || !lastName || !email) {
+      alert("Preencha todos os campos!");
+      return;
+    }
+
     try {
       if (firstName && lastName) {
         const { error: profileError } = await this.client
@@ -137,22 +142,32 @@ class GenovaApp {
   }
 
   async login() {
-    const email = document.getElementById("logEmail")?.value.trim();
-    const password = document.getElementById("logPassword")?.value.trim();
+  const email = document.getElementById("logEmail")?.value.trim();
+  const password = document.getElementById("logPassword")?.value.trim();
 
-    if (!email || !password) {
-      alert("Preencha todos os campos!");
-      return;
-    }
-
-    try {
-      const { error } = await this.client.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-      window.location.href = "../index.html";
-    } catch (err) {
-      alert("Erro ao logar: " + err.message);
-    }
+  if (!email || !password) {
+    alert("Preencha todos os campos!");
+    return;
   }
+
+  try {
+    const { data, error } = await this.client.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+
+    // 🔹 Define o e-mail do admin
+    const ADMIN_EMAIL = "suporte@empresa.com"; // <-- substitua pelo seu e-mail de admin
+
+    // 🔹 Redirecionamento conforme o tipo de usuário
+    if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+      window.location.href = "../screenSupport.html"; // tela de suporte técnico
+    } else {
+      window.location.href = "../index.html"; // tela normal de usuário
+    }
+
+  } catch (err) {
+    alert("Erro ao logar: " + err.message);
+  }
+}
 
   async logout() {
     await this.client.auth.signOut();
@@ -255,7 +270,7 @@ class GenovaApp {
           <td><input type="text" class="form-control form-control-sm" value="${item.prioridade}"></td>
           <td>${new Date(item.data_chamado).toLocaleString()}</td>
           <td>
-            <button class="btn btn-success btn-sm btn-edit">Salvar</button>
+            <button class="btn btn-success btn-sm btn-edit">Alterar</button>
             <button class="btn btn-danger btn-sm btn-delete">Excluir</button>
           </td>`;
         tbody.appendChild(tr);
