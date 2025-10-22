@@ -95,7 +95,7 @@ class ChatBot {
       const errorHtml = `
         <div class="error-message">
           ⚠️ Erro ao conectar com o Ollama.<br>
-          <img src="../assets/lampada.svg" alt="Dica" width="24" height="24" style="vertical-align: middle; margin-right: 6px;">
+          <img src="assets/lampada.svg" alt="Dica" width="24" height="24" style="vertical-align: middle; margin-right: 6px;">
           <a href="abrirchamado.html" target="_blank" style="color: #007bff; text-decoration: underline;">
             Clique aqui para ver possíveis soluções
           </a>
