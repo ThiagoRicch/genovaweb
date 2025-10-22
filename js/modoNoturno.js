@@ -11,6 +11,7 @@ class ThemeSwitcher {
     this.imgGenovaProfile = document.querySelector('.imagem__genova__profile');
     this.titulo = document.querySelector('.titulo__menu__navbar');
     this.tituloSlideTablet = document.querySelector('.titulo__slide2__tablet');
+    this.paragrafoSlideTablet = document.querySelector('.paragrafo__slide2__tablet');
     this.imgHomePage = document.querySelector('.img__home');
     this.imgChatGenova = document.querySelector('.img__chat-genova');
     this.imgOpenSupport = document.querySelector('.img__support');
@@ -24,8 +25,10 @@ class ThemeSwitcher {
     this.imgSuccess = document.querySelector('.img__success');
     this.imgTiming = document.querySelector('.img__timing');
     this.imgLogout = document.querySelector('.img__logout');
-    
+    this.clipDenuncias = document.querySelector('.img__clip__denuncias');
+
     this.initEvents();
+    this.loadThemeFromStorage(); // <-- carrega o tema salvo ao iniciar
   }
 
   initEvents() {
@@ -35,6 +38,11 @@ class ThemeSwitcher {
 
   toggleTheme() {
     const modo = this.inputCheck.checked ? 'dark' : 'light';
+    this.applyTheme(modo);
+    localStorage.setItem('tema_genova', modo); // <-- salva no localStorage
+  }
+
+  applyTheme(modo) {
     this.body.setAttribute('data-bs-theme', modo);
 
     if (modo === 'dark') {
@@ -60,6 +68,7 @@ class ThemeSwitcher {
       if (this.imgSuccess) this.imgSuccess.src = '../assets/success__branco.png';
       if (this.imgTiming) this.imgTiming.src = '../assets/timing__branco.png';
       if (this.imgLogout) this.imgLogout.src = '../assets/logout__branco.png';
+      if (this.clipDenuncias) this.clipDenuncias.src = '../assets/clipboard__denuncias__branco.svg';
     } else {
       if (this.imgGenova) this.imgGenova.src = '../assets/genova.svg';
       if (this.imgCardCerebro) this.imgCardCerebro.src = '../assets/cerebro.svg';
@@ -83,7 +92,14 @@ class ThemeSwitcher {
       if (this.imgSuccess) this.imgSuccess.src = '../assets/success.svg';
       if (this.imgTiming) this.imgTiming.src = '../assets/timing.png';
       if (this.imgLogout) this.imgLogout.src = '../assets/logout.png';
+      if (this.clipDenuncias) this.clipDenuncias.src = '../assets/clipboard__denuncias.svg';
     }
+  }
+
+  loadThemeFromStorage() {
+    const savedTheme = localStorage.getItem('tema_genova') || 'light';
+    this.applyTheme(savedTheme);
+    if (this.inputCheck) this.inputCheck.checked = savedTheme === 'dark';
   }
 }
 

@@ -409,6 +409,16 @@ async loadHistoryDenuncias() {
 
     tbody.innerHTML = "";
 
+    if (!history || history.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="text-center text-muted py-4">
+            Você ainda não fez nenhuma denúncia.<br>
+            Sua voz é importante para nós! 📢
+          </td>
+        </tr>`;
+      return;
+    }
     history.forEach(item => {
       const tr = document.createElement("tr");
       tr.dataset.id = item.id; // ESSENCIAL para edição/exclusão
