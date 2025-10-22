@@ -175,7 +175,7 @@ class GenovaApp {
       if (error) throw error;
 
       // 🔹 Define o e-mail do admin
-      const ADMIN_EMAIL = "suporte@empresa.com"; // <-- substitua pelo seu e-mail de admin
+      const ADMIN_EMAIL = "genovasupport@gmail.com"; // <-- substitua pelo seu e-mail de admin
 
       // 🔹 Redirecionamento conforme o tipo de usuário
       if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
@@ -268,38 +268,54 @@ class GenovaApp {
 
   // ==================== HISTÓRICO DE CHAMADOS ====================
   async loadChamadosHistory() {
-    const user = this.user || await this.getUserSession();
-    if (!user) return;
+  const user = this.user || await this.getUserSession();
+  if (!user) return;
 
-    try {
-      const { data: chamados, error } = await this.client.from("chamado_history")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("data_chamado", { ascending: false });
-      if (error) throw error;
+  try {
+    const { data: chamados, error } = await this.client.from("chamado_history")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("data_chamado", { ascending: false });
 
-      const tbody = document.querySelector("#chamadosHistory tbody");
-      if (!tbody) return;
+    if (error) throw error;
 
-      tbody.innerHTML = "";
-      chamados.forEach(item => {
-        const tr = document.createElement("tr");
-        tr.dataset.id = item.id; // Para editar/excluir
-        tr.innerHTML = `
-          <td><input type="text" class="form-control form-control-sm" value="${item.descricao}"></td>
-          <td><input type="text" class="form-control form-control-sm" value="${item.categoria}"></td>
-          <td><input type="text" class="form-control form-control-sm" value="${item.prioridade}"></td>
-          <td>${new Date(item.data_chamado).toLocaleString()}</td>
-          <td>
-            <button class="btn btn-success btn-sm btn-edit">Alterar</button>
-            <button class="btn btn-danger btn-sm btn-delete">Excluir</button>
-          </td>`;
-        tbody.appendChild(tr);
-      });
-    } catch (err) {
-      console.error("Erro ao carregar histórico de chamados:", err);
+    const tbody = document.querySelector("#chamadosHistory tbody");
+    const table = document.querySelector("#chamadosHistory");
+    if (!tbody) return;
+
+    tbody.innerHTML = "";
+
+    // Mensagem motivadora
+    if (!chamados || chamados.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="text-center text-muted py-4">
+            🌟 Não está vendo mais seu chamado aqui!?<br>
+            Não esquente! Com certeza os técnicos da <strong>Genova</strong> estão solucionando! 🔧💡
+          </td>
+        </tr>`;
+      return;
     }
+
+    chamados.forEach(item => {
+      const tr = document.createElement("tr");
+      tr.dataset.id = item.id;
+      tr.innerHTML = `
+        <td><input type="text" class="form-control form-control-sm" value="${item.descricao}"></td>
+        <td><input type="text" class="form-control form-control-sm" value="${item.categoria}"></td>
+        <td><input type="text" class="form-control form-control-sm" value="${item.prioridade}"></td>
+        <td>${new Date(item.data_chamado).toLocaleString()}</td>
+        <td>
+          <button class="btn btn-success btn-sm btn-edit">Alterar</button>
+          <button class="btn btn-danger btn-sm btn-delete">Excluir</button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  } catch (err) {
+    console.error("Erro ao carregar histórico de chamados:", err);
   }
+}
+
 
   listenChamadosHistory() {
     const user = this.user;
