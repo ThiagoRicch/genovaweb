@@ -185,7 +185,8 @@ input[type="checkbox"]:focus {
 .img__circle__pu,
 .img__circle__u,
 .img__success,
-.img__timing
+.img__timing,
+.img__clip__denuncias
 {
     width: 20px;
     height: 20px;

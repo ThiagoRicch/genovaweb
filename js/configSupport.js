@@ -10,7 +10,7 @@ async function loadChamadosPorPrioridade(prioridade, tabelaClasse) {
   try {
     const { data: chamados, error } = await supabase
       .from("chamado_history")
-      .select("id, descricao, prioridade, categoria")
+      .select("user_id, id, descricao, prioridade, categoria")
       .eq("prioridade", prioridade)
       .order("data_chamado", { ascending: false });
 
@@ -30,6 +30,7 @@ async function loadChamadosPorPrioridade(prioridade, tabelaClasse) {
     chamados.forEach(item => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
+        <td>${item.user_id}</td>
         <td>${item.prioridade}</td>
         <td>${item.categoria}</td>
         <td>${item.descricao}</td>

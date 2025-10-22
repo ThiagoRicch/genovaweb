@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!user) {
         alert("Você precisa estar logado para abrir um chamado.");
-        window.location.href = "login.html";
+        window.location.href = "index.html";
         return;
     }
 

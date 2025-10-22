@@ -38,7 +38,14 @@ class GenovaApp {
         this.addChamadoEvents();
         this.addLogoutEvents();
 
-      } else {
+      } else if (path.includes("historicodenuncias.html")) {
+        await this.showUser();
+        await this.loadHistoryDenuncias(); // carregamento inicial
+        this.listenDenuncias();            // escuta em tempo real
+        this.addLogoutEvents();
+        this.addDenunciaEvents();
+      }
+      else {
         this.addLogoutEvents();
       }
     });
@@ -60,7 +67,7 @@ class GenovaApp {
   // ==================== PERFIL ====================
   async showProfile() {
     const user = this.user || await this.getUserSession();
-    if (!user) { window.location.href = "login.html"; return; }
+    if (!user) { window.location.href = "index.html"; return; }
 
     try {
       const { data: profile, error } = await this.client
@@ -135,49 +142,49 @@ class GenovaApp {
       }
 
       alert("Cadastro realizado!");
-      window.location.href = "login.html";
+      window.location.href = "index.html";
     } catch (err) {
       alert("Erro ao registrar: " + err.message);
     }
   }
 
   async login() {
-  const email = document.getElementById("logEmail")?.value.trim();
-  const password = document.getElementById("logPassword")?.value.trim();
+    const email = document.getElementById("logEmail")?.value.trim();
+    const password = document.getElementById("logPassword")?.value.trim();
 
-  if (!email || !password) {
-    alert("Preencha todos os campos!");
-    return;
-  }
-
-  try {
-    const { data, error } = await this.client.auth.signInWithPassword({ email, password });
-    if (error) throw error;
-
-    // 🔹 Define o e-mail do admin
-    const ADMIN_EMAIL = "suporte@empresa.com"; // <-- substitua pelo seu e-mail de admin
-
-    // 🔹 Redirecionamento conforme o tipo de usuário
-    if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
-      window.location.href = "../screenSupport.html"; // tela de suporte técnico
-    } else {
-      window.location.href = "../index.html"; // tela normal de usuário
+    if (!email || !password) {
+      alert("Preencha todos os campos!");
+      return;
     }
 
-  } catch (err) {
-    alert("Erro ao logar: " + err.message);
+    try {
+      const { data, error } = await this.client.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+
+      // 🔹 Define o e-mail do admin
+      const ADMIN_EMAIL = "suporte@empresa.com"; // <-- substitua pelo seu e-mail de admin
+
+      // 🔹 Redirecionamento conforme o tipo de usuário
+      if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        window.location.href = "../screenSupport.html"; // tela de suporte técnico
+      } else {
+        window.location.href = "../home.html"; // tela normal de usuário
+      }
+
+    } catch (err) {
+      alert("Erro ao logar: " + err.message);
+    }
   }
-}
 
   async logout() {
     await this.client.auth.signOut();
-    window.location.href = "login.html";
+    window.location.href = "index.html";
   }
 
   // ==================== MOSTRAR USUÁRIO ====================
   async showUser() {
     const user = this.user || await this.getUserSession();
-    if (!user) { window.location.href = "login.html"; return; }
+    if (!user) { window.location.href = "index.html"; return; }
 
     try {
       const { data: profile, error } = await this.client.from("profiles")
@@ -244,6 +251,7 @@ class GenovaApp {
         }
       ).subscribe();
   }
+
 
   // ==================== HISTÓRICO DE CHAMADOS ====================
   async loadChamadosHistory() {
@@ -353,6 +361,123 @@ class GenovaApp {
       }
     });
   }
+
+  // ==================== CARREGAR HISTÓRICO DE DENÚNCIAS ====================
+async loadHistoryDenuncias() {
+  const user = this.user || await this.getUserSession();
+  if (!user) return;
+
+  try {
+    const { data: history, error } = await this.client.from("denuncias_user")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("data_denuncias", { ascending: false });
+
+    if (error) throw error;
+
+    const tbody = document.querySelector("#chamadosDenuncias tbody");
+    if (!tbody) return;
+
+    tbody.innerHTML = "";
+
+    history.forEach(item => {
+      const tr = document.createElement("tr");
+      tr.dataset.id = item.id; // ESSENCIAL para edição/exclusão
+      tr.innerHTML = `
+        <td><input type="text" class="form-control form-control-sm" value="${item.descricao_denuncias}"></td>
+        <td><input type="text" class="form-control form-control-sm" value="${item.categoria_denuncias}"></td>
+        <td>
+          <button class="btn btn-success btn-sm btn-edit">Alterar</button>
+          <button class="btn btn-danger btn-sm btn-delete">Excluir</button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  } catch (err) {
+    console.error("Erro ao carregar histórico de denúncias:", err);
+  }
+}
+
+// ==================== ESCUTAR NOVAS DENÚNCIAS EM TEMPO REAL ====================
+listenDenuncias() {
+  const user = this.user;
+  if (!user) return;
+
+  this.client.channel("denuncias_channel")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "denuncias_user",
+        filter: `user_id=eq.${user.id}`
+      },
+      payload => {
+        const item = payload.new;
+        const tbody = document.querySelector("#chamadosDenuncias tbody");
+        if (!tbody) return;
+
+        const tr = document.createElement("tr");
+        tr.dataset.id = item.id;
+        tr.innerHTML = `
+          <td><input type="text" class="form-control form-control-sm" value="${item.descricao_denuncias}"></td>
+          <td><input type="text" class="form-control form-control-sm" value="${item.categoria_denuncias}"></td>
+          <td>
+            <button class="btn btn-success btn-sm btn-edit">Alterar</button>
+            <button class="btn btn-danger btn-sm btn-delete">Excluir</button>
+          </td>`;
+        tbody.prepend(tr);
+      }
+    ).subscribe();
+}
+
+// ==================== EDIÇÃO E EXCLUSÃO DE DENÚNCIAS ====================
+addDenunciaEvents() {
+  const tbody = document.querySelector("#chamadosDenuncias tbody");
+  if (!tbody) return;
+
+  tbody.addEventListener("click", async (e) => {
+    const tr = e.target.closest("tr");
+    const id = tr?.dataset.id;
+    if (!tr || !id) return;
+
+    // EDITAR
+    if (e.target.classList.contains("btn-edit")) {
+      const descricao = tr.querySelector("td:nth-child(1) input")?.value.trim();
+      const categoria = tr.querySelector("td:nth-child(2) input")?.value.trim();
+
+      if (!descricao || !categoria) {
+        alert("Preencha todos os campos antes de atualizar!");
+        return;
+      }
+
+      try {
+        await this.client.from("denuncias_user")
+          .update({ descricao_denuncias: descricao, categoria_denuncias: categoria })
+          .eq("id", id);
+        alert("Denúncia atualizada com sucesso!");
+      } catch (err) {
+        console.error("Erro ao atualizar denúncia:", err);
+        alert("Erro ao atualizar denúncia");
+      }
+    }
+
+    // EXCLUIR
+    if (e.target.classList.contains("btn-delete")) {
+      const confirmDel = confirm("Você tem certeza que deseja excluir esta denúncia?");
+      if (!confirmDel) return;
+
+      try {
+        await this.client.from("denuncias_user")
+          .delete()
+          .eq("id", id);
+        tr.remove();
+      } catch (err) {
+        console.error("Erro ao excluir denúncia:", err);
+        alert("Erro ao excluir denúncia");
+      }
+    }
+  });
+}
 
   // ==================== GENOVA IA ====================
   async sendMessageToGenova(message) {

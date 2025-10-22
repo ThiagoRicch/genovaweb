@@ -91,15 +91,27 @@ class ChatBot {
       }
 
     } catch (err) {
-      this.addMessage("⚠️ Erro ao conectar com o Ollama.", "bot");
+      // Mensagem de erro com link clicável e imagem
+      const errorHtml = `
+        <div class="error-message">
+          ⚠️ Erro ao conectar com o Ollama.<br>
+          <img src="./assets/lampada.svg" alt="Dica" width="24" height="24" style="vertical-align: middle; margin-right: 6px;">
+          <a href="abrirchamado.html" target="_blank" style="color: #007bff; text-decoration: underline;">
+            Clique aqui para ver possíveis soluções
+          </a>
+        </div>
+      `;
+      this.addMessage(errorHtml, "bot", true);
       console.error(err);
     }
   }
 
-  addMessage(text, sender) {
+  addMessage(text, sender, isHtml = false) {
     const div = document.createElement("div");
     div.className = `msg ${sender}`;
-    div.textContent = text;
+    if (isHtml) div.innerHTML = text;
+    else div.textContent = text;
+
     this.messages.appendChild(div);
     this.messages.scrollTop = this.messages.scrollHeight;
   }
