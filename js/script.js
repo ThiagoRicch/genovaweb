@@ -121,32 +121,45 @@ class GenovaApp {
   }
 
   // ==================== LOGIN / REGISTRO ====================
-  async register() {
-    const firstName = document.getElementById("firstName")?.value.trim();
-    const lastName = document.getElementById("lastName")?.value.trim();
-    const email = document.getElementById("regEmail")?.value.trim();
-    const password = document.getElementById("regPassword")?.value.trim();
+ async register() {
+  const firstName = document.getElementById("firstName")?.value.trim();
+  const lastName = document.getElementById("lastName")?.value.trim();
+  const email = document.getElementById("regEmail")?.value.trim();
+  const password = document.getElementById("regPassword")?.value.trim();
 
-    if (!firstName || !lastName || !email || !password) {
-      alert("Preencha todos os campos!");
-      return;
-    }
+  const checkTermos = document.getElementById("checkTermos")?.checked;
+  const checkPrivacidade = document.getElementById("checkPrivacidade")?.checked;
+  const checkAnonimo = document.getElementById("checkAnonimo")?.checked;
 
-    try {
-      const { data, error } = await this.client.auth.signUp({ email, password });
-      if (error) throw error;
-
-      const userId = data.user?.id;
-      if (userId) {
-        await this.client.from("profiles").insert([{ id: userId, first_name: firstName, last_name: lastName }]);
-      }
-
-      alert("Cadastro realizado!");
-      window.location.href = "index.html";
-    } catch (err) {
-      alert("Erro ao registrar: " + err.message);
-    }
+  if (!firstName || !lastName || !email || !password) {
+    alert("Preencha todos os campos!");
+    return;
   }
+
+  // ✅ Verificação obrigatória dos direitos legais
+  if (!checkTermos || !checkPrivacidade || !checkAnonimo) {
+    alert("Você deve concordar com os Termos de Uso e a Política de Privacidade para continuar.");
+    return;
+  }
+
+  try {
+    const { data, error } = await this.client.auth.signUp({ email, password });
+    if (error) throw error;
+
+    const userId = data.user?.id;
+    if (userId) {
+      await this.client.from("profiles").insert([
+        { id: userId, first_name: firstName, last_name: lastName }
+      ]);
+    }
+
+    alert("Cadastro realizado com sucesso!");
+    window.location.href = "index.html";
+  } catch (err) {
+    alert("Erro ao registrar: " + err.message);
+  }
+}
+
 
   async login() {
     const email = document.getElementById("logEmail")?.value.trim();
