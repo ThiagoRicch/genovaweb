@@ -96,7 +96,7 @@ class ChatBot {
         <div class="error-message">
           ⚠️ Erro ao conectar com o Ollama.<br>
           <a href="abrirchamado.html" target="_blank" style="color: #007bff; text-decoration: none;">
-            Clique aqui para ver possíveis soluções💡
+            Clique aqui para abrir um chamado!💡
         </div>
       `;
       this.addMessage(errorHtml, "bot", true);
