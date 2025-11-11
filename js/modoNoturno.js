@@ -26,6 +26,7 @@ class ThemeSwitcher {
     this.imgTiming = document.querySelector('.img__timing');
     this.imgLogout = document.querySelector('.img__logout');
     this.clipDenuncias = document.querySelector('.img__clip__denuncias');
+    this.imageDenuncias = document.querySelector('.img__denuncias_user')
 
     this.initEvents();
     this.loadThemeFromStorage(); // <-- carrega o tema salvo ao iniciar
@@ -69,6 +70,7 @@ class ThemeSwitcher {
       if (this.imgTiming) this.imgTiming.src = '../assets/timing__branco.png';
       if (this.imgLogout) this.imgLogout.src = '../assets/logout__branco.png';
       if (this.clipDenuncias) this.clipDenuncias.src = '../assets/clipboard__denuncias__branco.svg';
+      if (this.imageDenuncias) this.imageDenuncias.src = '../assets/denuncias_branco.png';
     } else {
       if (this.imgGenova) this.imgGenova.src = '../assets/genova.svg';
       if (this.imgCardCerebro) this.imgCardCerebro.src = '../assets/cerebro.svg';
@@ -93,6 +95,7 @@ class ThemeSwitcher {
       if (this.imgTiming) this.imgTiming.src = '../assets/timing.png';
       if (this.imgLogout) this.imgLogout.src = '../assets/logout.png';
       if (this.clipDenuncias) this.clipDenuncias.src = '../assets/clipboard__denuncias.svg';
+      if (this.imageDenuncias) this.imageDenuncias.src = '../assets/denuncias.png';
     }
   }
 

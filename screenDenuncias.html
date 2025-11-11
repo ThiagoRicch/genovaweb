@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/estilos.css">
+</head>
+
+<body data-bs-theme="light">
+    <header>
+        <nav class="navbar bg-body-tertiary fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="screenOuvidoria.html"><img class="imagem__genova" src="../assets/genova.svg"
+                        alt="logo genova"><strong>enova</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><img class="imagem__genova__navbar"
+                                src="../assets/genova.svg" alt="logo genova"><strong class="titulo__menu__navbar">enova</strong></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <div class="align-items-center">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="screenOuvidoria.html">
+                                    <img class = "img__home" src="./assets/home.svg.png" alt="imagem home"> Início</a>
+                                    
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="screenChat.html"> 
+                                    <img class = "img__chat-genova" src="./assets/chat.svg.png" alt=""> GenovaIA</a>
+                                    
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="screenDenuncias.html"> 
+                                    <img class = "img__denuncias_user" src="./assets/denuncias.png" alt=""> Denúncias</a>
+                                    
+                                </li>
+                                 <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Mais..
+                                    </a>
+                                    <div class="align-items-center">
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="screenDenunciasTiming.html">
+                                                <img class = "img__timing" src="./assets/timing.png" alt=""> Em Andamento</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="screenDenunciasSuccess.html">
+                                                <img class = "img__success" src="./assets/success.svg" alt=""> Solucionados</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" role="switch" id="modo__noturno">
+                                                        <label class="form-check-label" for="modo__noturno">Modo Noturno 
+                                                            <img class = "img__theme" src="./assets/theme.svg.png" alt="">
+                                                        </label>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="index.html">
+                                                <img class = "img__logout"src="./assets/logout.png" alt=""> Sair</a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="main__support">
+        <table class="table__denuncias table table-danger table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID User</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </main>
+    <!-- Script do Supabase -->
+    <script type="module" src="../js/configOuvidoria.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../js/script.js"></script>
+    <script src="../js/modoNoturno.js"></script>
+</body>
+
+</html>

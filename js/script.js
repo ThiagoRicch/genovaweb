@@ -87,38 +87,47 @@ class GenovaApp {
   }
 
   async updateProfile() {
-    const user = this.user || await this.getUserSession();
-    if (!user) return;
-
-    const firstName = document.getElementById("InputCarregarNome")?.value.trim();
-    const lastName = document.getElementById("inputCarregarSobrenome")?.value.trim();
-    const email = document.getElementById("inputCarregarEmail")?.value.trim();
-
-    if (!firstName || !lastName || !email) {
-      alert("Preencha todos os campos!");
-      return;
-    }
-
-    try {
-      if (firstName && lastName) {
-        const { error: profileError } = await this.client
-          .from("profiles")
-          .update({ first_name: firstName, last_name: lastName })
-          .eq("id", user.id);
-        if (profileError) throw profileError;
-      }
-
-      if (email && email !== user.email) {
-        const { error: authError } = await this.client.auth.updateUser({ email });
-        if (authError) throw authError;
-      }
-
-      alert("Perfil atualizado com sucesso!");
-    } catch (err) {
-      alert("Erro ao atualizar perfil: " + err.message);
-      console.error(err);
-    }
+  const user = this.user || (await this.getUserSession());
+  if (!user) {
+    alert("Usuário não autenticado.");
+    return;
   }
+
+  const firstName = document.getElementById("InputCarregarNome")?.value.trim();
+  const lastName = document.getElementById("inputCarregarSobrenome")?.value.trim();
+  const email = document.getElementById("inputCarregarEmail")?.value.trim().toLowerCase();
+
+  if (!firstName || !lastName || !email) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("Digite um e-mail válido!");
+    return;
+  }
+
+  try {
+    const { error: profileError } = await this.client
+      .from("profiles")
+      .update({ first_name: firstName, last_name: lastName })
+      .eq("id", user.id);
+
+    if (profileError) throw profileError;
+
+    if (email && email !== user.email) {
+      await this.client.auth.refreshSession();
+      const { error: authError } = await this.client.auth.updateUser({ email });
+      if (authError) throw authError;
+    }
+
+    alert("Perfil atualizado com sucesso!");
+  } catch (err) {
+    alert("Erro ao atualizar perfil: " + err.message);
+    console.error(err);
+  }
+}
 
   // ==================== LOGIN / REGISTRO ====================
  async register() {
@@ -171,24 +180,35 @@ class GenovaApp {
     }
 
     try {
-      const { data, error } = await this.client.auth.signInWithPassword({ email, password });
-      if (error) throw error;
+    const { data, error } = await this.client.auth.signInWithPassword({ email, password });
+    if (error) throw error;
 
-      // 🔹 Define o e-mail do admin
-      const ADMIN_EMAIL = "genovasupport@gmail.com"; // <-- substitua pelo seu e-mail de admin
+    // Atualiza sessão/usuário local
+    await this.getUserSession();
 
-      // 🔹 Redirecionamento conforme o tipo de usuário
-      if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
-        window.location.href = "../screenSupport.html"; // tela de suporte técnico
-      } else {
-        window.location.href = "../home.html"; // tela normal de usuário
-      }
+    // 🔹 Define os e-mails especiais
+    const ADMIN_EMAIL = "genovasupport@gmail.com";
+    const OUVIDORIA_EMAIL = "genovaouvidoria@gmail.com";
 
-    } catch (err) {
-      alert("Erro ao logar: " + err.message);
+    const lower = email.toLowerCase();
+
+    // Redirecionamento único e claro
+    if (lower === ADMIN_EMAIL.toLowerCase()) {
+      window.location.href = "../screenSupport.html";
+      return;
+    } else if (lower === OUVIDORIA_EMAIL.toLowerCase()) {
+      window.location.href = "../screenOuvidoria.html";
+      return;
+    } else {
+      window.location.href = "../home.html";
+      return;
     }
-  }
 
+  } catch (err) {
+    alert("Erro ao logar: " + err.message);
+    console.error("Login error:", err);
+  }
+}
   async logout() {
     await this.client.auth.signOut();
     window.location.href = "index.html";
